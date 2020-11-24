@@ -45,8 +45,27 @@ function cek_unit($id){
     return $data['nama'];
 }
 
+function cek_dampak($id){
+    $data=App\Dampak::where('id',$id)->first();
+    return $data['nama'];
+}
+
+function cek_rolenya(){
+    
+    $data=App\Model_has_roles::where('model_id',Auth::user()['nik'])->first();
+    return $data['role_id'];
+}
+
 function cek_matrik($peluang,$dampak){
     $data=App\Matrikrisiko::where('dampak_id',$dampak)->where('peluang_id',$peluang)->first();
+    return $data;
+}
+
+function total_kpi($priode){
+    
+}
+function cek_kriteria($dampak_id,$kategori_id,$kriteriatipe){
+    $data=App\Kriteria::where('dampak_id',$dampak_id)->where('kategori_id',$kategori_id)->where('tipe',$kriteriatipe)->first();
     return $data;
 }
 

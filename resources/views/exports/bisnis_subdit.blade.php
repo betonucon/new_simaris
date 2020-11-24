@@ -53,7 +53,7 @@
                             @endif
                                 <td class="tdisi">{{$sumber['namasumber']}}</td>
                             @if($x==0)
-                                <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_klasifikasi($resik['klasifikasi_id'])['nama']}}</td>
+                            <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_kriteria($resik['dampak_id'],$resik['kategori_id'],$resik['kriteriatipe'])['nama']}}</td>
                                 <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_matrik($resik['peluang_id'],$resik['dampak_id'])['tingkat']}}</td>
                             @endif
                                 <td class="tdisi">{{$sumber['mitigasi']}}</td>

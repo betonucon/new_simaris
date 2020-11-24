@@ -42,7 +42,6 @@ class ResikobisnisController extends Controller
     
     public function index(Request $request)
     {
-        
         $jmlkpiall = 0;
         $jmlkpisudahinput = 0;
         $jmlkpinull = 0;
@@ -60,7 +59,6 @@ class ResikobisnisController extends Controller
         $periodeaktifid = $periodeaktif->id;
         $perioderequest = $request->periode;
         $risikobisnis = Risikobisnis::byId($periodeaktif->id)->byUnit($unitid)->first();
-        $cekkpiall = Kpi::where('perioderisikobisnis_id',$request->periode)->where('unit_id',$unitid)->count();
         
         $tabel='';
         if(isset($request->periode)){
@@ -74,7 +72,6 @@ class ResikobisnisController extends Controller
                     <th>No</th>
                     <th>KPI</th>
                     <th>Risiko</th>
-                    <th>Akibat</th>
                     <th>Peluang</th>
                     <th>Kelompok</th>
                     <th width="10%">Kaidah</th>
@@ -103,7 +100,6 @@ class ResikobisnisController extends Controller
                 <th>No</th>
                 <th>KPI</th>
                 <th>Risiko</th>
-                <th>Akibat</th>
                 <th>Peluang</th>
                 <th>Kelompok</th>
                 <th width="10%">Kaidah</th>
@@ -168,7 +164,6 @@ class ResikobisnisController extends Controller
                     if($keys==0){
                         $tabel.='
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->risiko).'</td>
-                        <td>'.$this->cek_kri($values->kriteria,$values->dampak).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->peluang).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->namakelompok).'</td>';
                         if($values->kaidah==1){
@@ -200,7 +195,6 @@ class ResikobisnisController extends Controller
                     }else{
                         $tabel.='<tr>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->risiko).'</td>
-                        <td>'.$this->cek_kri($values->kriteria,$values->dampak).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->peluang).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->namakelompok).'</td>';
                         if($values->kaidah==1){
@@ -239,7 +233,6 @@ class ResikobisnisController extends Controller
                     <th>No</th>
                     <th>KPI</th>
                     <th>Risiko</th>
-                    <th>Akibat</th>
                     <th>Peluang</th>
                     <th>Kelompok</th>
                     <th width="10%">Kaidah</th>
@@ -258,8 +251,9 @@ class ResikobisnisController extends Controller
             $cekkpinull = Kpi::byId($request->periode)->byDeleted($deleted)->byStatus($status)->byUnit($unitid)->get();
             $jmlkpinull = count($cekkpinull);
             
-            
-            
+            $cekkpiall = Kpi::byId($request->periode)->byUnit($unitid)->get();
+            $jmlkpiall = count($cekkpiall);
+
             $statusinput = 1;
             $cekkpisudahinput = Kpi::byId($request->periode)->byStatus($statusinput)->byUnit($unitid)->get();
             $jmlkpisudahinput = count($cekkpisudahinput);
@@ -278,7 +272,6 @@ class ResikobisnisController extends Controller
                 <th>No</th>
                 <th>KPI</th>
                 <th>Risiko</th>
-                <th>Akibat</th>
                 <th>Peluang</th>
                 <th>Kelompok</th>
                 <th width="10%">Kaidah</th>
@@ -299,8 +292,8 @@ class ResikobisnisController extends Controller
             $cekkpinull = Kpi::byId($periodeaktif->id)->byDeleted($deleted)->byStatus($status)->byUnit($unitid)->get();
             $jmlkpinull = count($cekkpinull);
             
-            $cekkpiall = Kpi::where('perioderisikobisnis_id',$request->periode)->where('unit_id',$unitid)->count();
-            $jmlkpiall =$cekkpiall;
+            $cekkpiall = Kpi::byId($periodeaktif->id)->byUnit($unitid)->get();
+            $jmlkpiall = count($cekkpiall);
     
             $statusinput = 1;
             $cekkpisudahinput = Kpi::byId($periodeaktif->id)->byStatus($statusinput)->byUnit($unitid)->get();
@@ -317,7 +310,6 @@ class ResikobisnisController extends Controller
                 <th>No</th>
                 <th>KPI</th>
                 <th>Risiko</th>
-                <th>Akibat</th>
                 <th>Peluang</th>
                 <th>Kelompok</th>
                 <th width="10%">Kaidah</th>
@@ -382,7 +374,6 @@ class ResikobisnisController extends Controller
                     if($keys==0){
                         $tabel.='
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->risiko).'</td>
-                        <td>'.$this->cek_kri($values->kriteria,$values->dampak).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->peluang).'</td>
                         <td>'.$this->cek_kri($values->jenisrisiko,$values->namakelompok).'</td>';
                         if($values->kaidah==1){
@@ -476,7 +467,7 @@ class ResikobisnisController extends Controller
       
         return view('resiko.resikobisnis.index', compact(
             'risikobisnis', 'periodeaktif', 'kpi','klasifikasi','peluang','hasildampak','periodeall','periode','unitkerja','namarisiko','unituser','nikuser','jmlkpinull','jmlkpiall',
-            'jmlkpisudahinput','tabel','periodeaktifid','perioderequest','cekkpiall'
+            'jmlkpisudahinput','tabel','periodeaktifid','perioderequest'
         ));
     }
     function cek_kri($jenis,$param){

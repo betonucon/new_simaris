@@ -25,6 +25,13 @@ Route::group(['middleware'=>['role:keyperson|verifikatur|pimpinanunit|managergcg
     Route::post('/importkpi','KpiController@import');
     
 });
+Route::group(['middleware'=>['role:verifikatur|superadmin|keyperson|pimpinanunit']], function () {
+    Route::get('/laprisikobisnis', 'LaprisikobisnisController@index');
+    Route::get('/laprisikobisnis_subdit', 'LaprisikobisnisController@index_subdit');
+    Route::get('/export_excel', 'LaprisikobisnisController@export_excel');
+    Route::get('/export_excel_subdit', 'LaprisikobisnisController@export_excel_subdit');
+    Route::get('/laprisikobisniskpiutama', 'LaprisikobisniskpiutamaController@index');
+});
 Route::group(['middleware'=>['role:verifikatur|superadmin|']], function () {
     //periodebisnis
     Route::get('/periodebisnis', 'PeriodebisnisController@index')->name('periodebisnis.index');
@@ -68,11 +75,7 @@ Route::group(['middleware'=>['role:verifikatur|superadmin|']], function () {
     Route::post('/kri_rkap','RiskbisnisverifController@kri_rkap');
     Route::post('/kelompokrisiko/{id}','RiskbisnisverifController@kelompokrisiko');
     Route::get('/resikobisnisadmin', 'RiskbisnisverifController@index');
-    Route::get('/laprisikobisnis', 'LaprisikobisnisController@index');
-    Route::get('/laprisikobisnis_subdit', 'LaprisikobisnisController@index_subdit');
-    Route::get('/export_excel', 'LaprisikobisnisController@export_excel');
-    Route::get('/export_excel_subdit', 'LaprisikobisnisController@export_excel_subdit');
-    Route::get('/laprisikobisniskpiutama', 'LaprisikobisniskpiutamaController@index');
+    
     
     Route::get('/periode/{periode}/unit/{unit}/tingkat/{tingkat}', 'LaprisikobisnisController@export')->name('excel.export');
     //otorisasi kpi
@@ -93,40 +96,40 @@ Route::group(['middleware'=>['role:verifikatur|superadmin|']], function () {
 });
 
     Route::group(['middleware'=>['role:keyperson']], function () {
-    Route::get('/resikobisnis', 'ResikobisnisController@index')->name('resikobisnis.index');
-    Route::post('/store','ResikobisnisController@store');
-    Route::get('/getmatrixrisiko/{peluangid}/{dampakid}','ResikobisnisController@getmatrixrisiko');
-    Route::get('/validasibisnis/{id}','ResikobisnisController@validasibisnis');
-    Route::get('/batalvalidasibisnis/{id}','ResikobisnisController@batalvalidasibisnis');
-    Route::get('/addrisikobisnis','ResikobisnisController@create');
-    Route::get('/edit/{id?}','ResikobisnisController@edit');
-    Route::post('/update','ResikobisnisController@update');
-    Route::get('/destroy/{id?}','ResikobisnisController@destroy');
-    Route::get('/kpikeyperson', 'ResikobisnisController@kpi')->name('kpikeyperson.index');
-    Route::get('/addkpikeyperson','ResikobisnisController@addkpi');
-    Route::post('/storekpikeyperson','ResikobisnisController@storekpi');
-    Route::get('/editkpikeyperson/{id?}','ResikobisnisController@editkpi');
-    Route::post('/updatekpikeyperson','ResikobisnisController@updatekpi');
-    Route::get('/destroykpikeyperson/{id?}','ResikobisnisController@destroykpi');
-    Route::post('/kirimkomentarkeyperson','ResikobisnisController@kirimkomentarkeyperson');
-    Route::post('/importkpikeyperson','ResikobisnisController@importkpikeyperson');
-    Route::get('/destroyrisiko/{id?}','ResikobisnisController@destroy');
-    //risiko aset
-    Route::get('/risikoaset', 'RisikoasetController@index')->name('risikoaset.index');
-    Route::get('/addrisikoaset','RisikoasetController@create');
-    //risiko project
-    Route::get('/risikoproject', 'RisikoprojectController@index')->name('risikoproject.index');
-    Route::get('/addrisikoproject','RisikoprojectController@create');
-    Route::post('/storeriskproject','RisikoprojectController@store');
-    Route::get('/editriskproject/{id?}','RisikoprojectController@edit');
-    Route::post('/updateriskproject','RisikoprojectController@update');
-    Route::get('/destroyriskproject/{id?}','RisikoprojectController@destroy');
-    Route::get('/validriskproject/{id}','RisikoprojectController@validriskproject');
-    Route::get('/batalvalidasiproject/{id}','RisikoprojectController@batalvalidasiproject');
-    Route::post('/levelpalingutama','ResikobisnisController@levelpalingutama');
-    Route::post('/levelutama','ResikobisnisController@levelutama');
-    Route::post('/kpiutama','ResikobisnisController@kpiutama');
-    Route::post('/batalkanlevel','ResikobisnisController@batalkanlevel');
+        Route::get('/resikobisnis', 'ResikobisnisController@index')->name('resikobisnis.index');
+        Route::post('/store','ResikobisnisController@store');
+        Route::get('/getmatrixrisiko/{peluangid}/{dampakid}','ResikobisnisController@getmatrixrisiko');
+        Route::get('/validasibisnis/{id}','ResikobisnisController@validasibisnis');
+        Route::get('/batalvalidasibisnis/{id}','ResikobisnisController@batalvalidasibisnis');
+        Route::get('/addrisikobisnis','ResikobisnisController@create');
+        Route::get('/edit/{id?}','ResikobisnisController@edit');
+        Route::post('/update','ResikobisnisController@update');
+        Route::get('/destroy/{id?}','ResikobisnisController@destroy');
+        Route::get('/kpikeyperson', 'ResikobisnisController@kpi')->name('kpikeyperson.index');
+        Route::get('/addkpikeyperson','ResikobisnisController@addkpi');
+        Route::post('/storekpikeyperson','ResikobisnisController@storekpi');
+        Route::get('/editkpikeyperson/{id?}','ResikobisnisController@editkpi');
+        Route::post('/updatekpikeyperson','ResikobisnisController@updatekpi');
+        Route::get('/destroykpikeyperson/{id?}','ResikobisnisController@destroykpi');
+        Route::post('/kirimkomentarkeyperson','ResikobisnisController@kirimkomentarkeyperson');
+        Route::post('/importkpikeyperson','ResikobisnisController@importkpikeyperson');
+        Route::get('/destroyrisiko/{id?}','ResikobisnisController@destroy');
+        //risiko aset
+        Route::get('/risikoaset', 'RisikoasetController@index')->name('risikoaset.index');
+        Route::get('/addrisikoaset','RisikoasetController@create');
+        //risiko project
+        Route::get('/risikoproject', 'RisikoprojectController@index')->name('risikoproject.index');
+        Route::get('/addrisikoproject','RisikoprojectController@create');
+        Route::post('/storeriskproject','RisikoprojectController@store');
+        Route::get('/editriskproject/{id?}','RisikoprojectController@edit');
+        Route::post('/updateriskproject','RisikoprojectController@update');
+        Route::get('/destroyriskproject/{id?}','RisikoprojectController@destroy');
+        Route::get('/validriskproject/{id}','RisikoprojectController@validriskproject');
+        Route::get('/batalvalidasiproject/{id}','RisikoprojectController@batalvalidasiproject');
+        Route::post('/levelpalingutama','ResikobisnisController@levelpalingutama');
+        Route::post('/levelutama','ResikobisnisController@levelutama');
+        Route::post('/kpiutama','ResikobisnisController@kpiutama');
+        Route::post('/batalkanlevel','ResikobisnisController@batalkanlevel');
     
 });
 

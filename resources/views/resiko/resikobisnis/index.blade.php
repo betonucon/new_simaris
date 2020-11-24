@@ -172,7 +172,7 @@
         <div class="box-header">
             <table class="table table-bordered table-striped">
                 <tr align="center"><th>Total KPI</th><th>Sudah diinput</th><th>Belum diinput</th></tr>
-                <tr align="center"><td><a class="btn btn-primary" href="#">{{$jmlkpiall}}</a></td>
+                <tr align="center"><td><a class="btn btn-primary" href="#">{{$cekkpiall}}</a></td>
                   <td><a class="btn btn-success" href="#">{{$jmlkpisudahinput}}</a></td>
                   <td><a class="btn btn-warning" href="#">{{$jmlkpinull}}</a></td>
                 </tr>
@@ -207,6 +207,7 @@
                 <th>Kelompok</th>
                 <th>Kaidah</th>
                 <th>Risiko</th>
+                <th>Akibat</th>
                 <th>Peluang</th>
                 <th>Dampak</th>
                 <th>Warna</th>
@@ -238,6 +239,7 @@
                   @endif
               </td>
                 
+                <td>@if($riskdetail->jenisrisiko=='KRI')<p class="text-red">{{ $riskdetail->risiko }}</p>@else{{ $riskdetail->risiko }}@endif</td>
                 <td>@if($riskdetail->jenisrisiko=='KRI')<p class="text-red">{{ $riskdetail->risiko }}</p>@else{{ $riskdetail->risiko }}@endif</td>
                 <td>@if($riskdetail->jenisrisiko=='KRI')<p class="text-red">{{ $riskdetail->peluang->nama }}</p>@else{{ $riskdetail->peluang->nama }}@endif</td>
                 <td>@if($riskdetail->jenisrisiko=='KRI')<p class="text-red">{{ $riskdetail->dampak->nama }}</p>@else{{ $riskdetail->dampak->nama }}@endif</td>

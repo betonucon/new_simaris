@@ -86,6 +86,16 @@ function exportexcel(){
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-10">
+                                 @if(cek_rolenya()==1 || cek_rolenya()==3)
+
+                                 <input type="text" readonly class="form-control" style="width: 100%;"
+                                         value="{{cek_unit(Auth::user()['unit_id'])}}" required>
+                                 <input type="hidden" readonly class="form-control" style="width: 100%;" name="unitkerja"
+                                        id="unitkerja" value="{{Auth::user()['unit_id']}}" required>
+
+                                 @endif
+
+                                 @if(cek_rolenya()==2 || cek_rolenya()==5)
                                     <select class="form-control select2" style="width: 100%;" name="unitkerja"
                                         id="unitkerja" required>
                                         <option value="">Pilih Unit</option>
@@ -97,6 +107,7 @@ function exportexcel(){
                                         @endforeach
                                        
                                     </select>
+                                @endif
                                 </div>
                                 
                             </div>
@@ -201,7 +212,7 @@ function exportexcel(){
                                     @endif
                                         <td class="tdisi">{{$sumber['namasumber']}}</td>
                                     @if($x==0)
-                                        <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_klasifikasi($resik['klasifikasi_id'])['nama']}}</td>
+                                        <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_kriteria($resik['dampak_id'],$resik['kategori_id'],$resik['kriteriatipe'])['nama']}}</td>
                                         <td class="tdisi" rowspan="{{sumber_risiko_count($resik['id'])}}">{{cek_matrik($resik['peluang_id'],$resik['dampak_id'])['tingkat']}}</td>
                                     @endif
                                         <td class="tdisi">{{$sumber['mitigasi']}}</td>

@@ -120,7 +120,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ url('dist/img/user2-160x160.png') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+              <span class="hidden-xs">{{cek_rolenya()}}-{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -211,7 +211,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview menu-open">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            <i class="fa fa-dashboard"></i> <span>Dashboard </span>
             
           </a>
         </li>
